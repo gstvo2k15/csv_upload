@@ -30,20 +30,23 @@ reports:
   global
 
 notes:
-  --global  -> genera solo dpi_global.csv (un único fichero con todos los productos)
-  --all     -> genera todos los CSV individuales y también dpi_global.csv
+  --global  -> generate only dpi_global.csv (single file for all product)
+  --all     -> generate all CSV individually and also including dpi_global.csv
 EOF
   exit 0
 }
 
 die(){ echo "$*" >&2; exit 1; }
 
-run_report() {
-  local out="$1" header="$2" profile="$3" mode="$4"
-  shift 4
-  local -a prods=("$@")
-
+init_csv() {
+  local out="$1" header="$2"
   echo "$header" | sudo tee "$DST_FOLDER/$out" > /dev/null
+}
+
+append_products() {
+  local out="$1" profile="$2" mode="$3"
+  shift 3
+  local -a prods=("$@")
 
   for product in "${prods[@]}"; do
     echo -e "\n### Starting csv for $product at $timereport ###"
@@ -205,42 +208,111 @@ done
 
 case "$action" in
   global)
-    run_report "dpi_global.csv" "$hdr_label" "base" "prd" "${products_global[@]}"
-    run_report "dpi_global.csv" "$hdr_label" "base" "ibm" "${products_tomcat_ibmcloud[@]}"
+    init_csv "dpi_global.csv" "$hdr_label"
+    append_products "dpi_global.csv" "base" "prd" "${products_global[@]}"
+    append_products "dpi_global.csv" "base" "ibm" "${products_tomcat_ibmcloud[@]}"
     ;;
   report)
     case "$report_name" in
-      apache)          run_report "dpi_apache.csv"              "$hdr_base"    "base"        "prd" "${products_apache[@]}" ;;
-      apache_csa)      run_report "dpi_apache_csa.csv"          "$hdr_base"    "base"        "prd" "${products_apache_csa[@]}" ;;
-      iis)             run_report "dpi_iis.csv"                 "$hdr_base"    "base"        "prd" "${products_iis[@]}" ;;
-      iis_vpc)         run_report "dpi_ii_vpc.csv"              "$hdr_base"    "iis_vpc"     "prd" "${products_iis_vpc[@]}" ;;
-      jbosseap)        run_report "dpi_jbossEAP.csv"            "$hdr_base"    "base"        "prd" "${products_jbosseap[@]}" ;;
-      jbossews)        run_report "dpi_jbossews.csv"            "$hdr_base"    "base"        "prd" "${products_jbossews[@]}" ;;
-      tomcat)          run_report "dpi_tomcat.csv"              "$hdr_base"    "base"        "prd" "${products_tomcat[@]}"; run_report "dpi_tomcat.csv" "$hdr_base" "base" "ibm" "${products_tomcat_ibmcloud[@]}" ;;
-      tomcat_ibmcloud) run_report "dpi_tomcat_ibmcloud.csv"     "$hdr_base"    "base"        "ibm" "${products_tomcat_ibmcloud[@]}" ;;
-      weblogic)        run_report "dpi_weblogic.csv"            "$hdr_label"   "label"       "prd" "${products_weblogic[@]}" ;;
-      was)             run_report "dpi_was.csv"                 "$hdr_label"   "label"       "prd" "${products_was[@]}" ;;
-      sso)             run_report "dpi_sso.csv"                 "$hdr_sso"     "sso"         "prd" "${products_sso[@]}" ;;
-      sso_ibm_vdc)     run_report "dpi_sso_ibm_vdc.csv"         "$hdr_sso_ibm" "sso_ibm_vdc" "prd" "${products_sso_ibm_vdc[@]}" ;;
-      global)          run_report "dpi_global.csv"              "$hdr_label"   "base"        "prd" "${products_global[@]}"; run_report "dpi_global.csv" "$hdr_label" "base" "ibm" "${products_tomcat_ibmcloud[@]}" ;;
-      *) die "unknown report name: $report_name (use --help)" ;;
+      apache)
+        init_csv "dpi_apache.csv" "$hdr_base"
+        append_products "dpi_apache.csv" "base" "prd" "${products_apache[@]}"
+        ;;
+      apache_csa)
+        init_csv "dpi_apache_csa.csv" "$hdr_base"
+        append_products "dpi_apache_csa.csv" "base" "prd" "${products_apache_csa[@]}"
+        ;;
+      iis)
+        init_csv "dpi_iis.csv" "$hdr_base"
+        append_products "dpi_iis.csv" "base" "prd" "${products_iis[@]}"
+        ;;
+      iis_vpc)
+        init_csv "dpi_ii_vpc.csv" "$hdr_base"
+        append_products "dpi_ii_vpc.csv" "iis_vpc" "prd" "${products_iis_vpc[@]}"
+        ;;
+      jbosseap)
+        init_csv "dpi_jbossEAP.csv" "$hdr_base"
+        append_products "dpi_jbossEAP.csv" "base" "prd" "${products_jbosseap[@]}"
+        ;;
+      jbossews)
+        init_csv "dpi_jbossews.csv" "$hdr_base"
+        append_products "dpi_jbossews.csv" "base" "prd" "${products_jbossews[@]}"
+        ;;
+      tomcat)
+        init_csv "dpi_tomcat.csv" "$hdr_base"
+        append_products "dpi_tomcat.csv" "base" "prd" "${products_tomcat[@]}"
+        append_products "dpi_tomcat.csv" "base" "ibm" "${products_tomcat_ibmcloud[@]}"
+        ;;
+      tomcat_ibmcloud)
+        init_csv "dpi_tomcat_ibmcloud.csv" "$hdr_base"
+        append_products "dpi_tomcat_ibmcloud.csv" "base" "ibm" "${products_tomcat_ibmcloud[@]}"
+        ;;
+      weblogic)
+        init_csv "dpi_weblogic.csv" "$hdr_label"
+        append_products "dpi_weblogic.csv" "label" "prd" "${products_weblogic[@]}"
+        ;;
+      was)
+        init_csv "dpi_was.csv" "$hdr_label"
+        append_products "dpi_was.csv" "label" "prd" "${products_was[@]}"
+        ;;
+      sso)
+        init_csv "dpi_sso.csv" "$hdr_sso"
+        append_products "dpi_sso.csv" "sso" "prd" "${products_sso[@]}"
+        ;;
+      sso_ibm_vdc)
+        init_csv "dpi_sso_ibm_vdc.csv" "$hdr_sso_ibm"
+        append_products "dpi_sso_ibm_vdc.csv" "sso_ibm_vdc" "prd" "${products_sso_ibm_vdc[@]}"
+        ;;
+      global)
+        init_csv "dpi_global.csv" "$hdr_label"
+        append_products "dpi_global.csv" "base" "prd" "${products_global[@]}"
+        append_products "dpi_global.csv" "base" "ibm" "${products_tomcat_ibmcloud[@]}"
+        ;;
+      *)
+        die "unknown report name: $report_name (use --help)"
+        ;;
     esac
     ;;
   all)
-    run_report "dpi_apache.csv"              "$hdr_base"    "base"        "prd" "${products_apache[@]}"
-    run_report "dpi_apache_csa.csv"          "$hdr_base"    "base"        "prd" "${products_apache_csa[@]}"
-    run_report "dpi_iis.csv"                 "$hdr_base"    "base"        "prd" "${products_iis[@]}"
-    run_report "dpi_ii_vpc.csv"              "$hdr_base"    "iis_vpc"     "prd" "${products_iis_vpc[@]}"
-    run_report "dpi_jbossEAP.csv"            "$hdr_base"    "base"        "prd" "${products_jbosseap[@]}"
-    run_report "dpi_jbossews.csv"            "$hdr_base"    "base"        "prd" "${products_jbossews[@]}"
-    run_report "dpi_tomcat.csv"              "$hdr_base"    "base"        "prd" "${products_tomcat[@]}"
-    run_report "dpi_tomcat.csv"              "$hdr_base"    "base"        "ibm" "${products_tomcat_ibmcloud[@]}"
-    run_report "dpi_tomcat_ibmcloud.csv"     "$hdr_base"    "base"        "ibm" "${products_tomcat_ibmcloud[@]}"
-    run_report "dpi_weblogic.csv"            "$hdr_label"   "label"       "prd" "${products_weblogic[@]}"
-    run_report "dpi_was.csv"                 "$hdr_label"   "label"       "prd" "${products_was[@]}"
-    run_report "dpi_sso.csv"                 "$hdr_sso"     "sso"         "prd" "${products_sso[@]}"
-    run_report "dpi_sso_ibm_vdc.csv"         "$hdr_sso_ibm" "sso_ibm_vdc" "prd" "${products_sso_ibm_vdc[@]}"
-    run_report "dpi_global.csv"              "$hdr_label"   "base"        "prd" "${products_global[@]}"
-    run_report "dpi_global.csv"              "$hdr_label"   "base"        "ibm" "${products_tomcat_ibmcloud[@]}"
+    init_csv "dpi_apache.csv" "$hdr_base"
+    append_products "dpi_apache.csv" "base" "prd" "${products_apache[@]}"
+
+    init_csv "dpi_apache_csa.csv" "$hdr_base"
+    append_products "dpi_apache_csa.csv" "base" "prd" "${products_apache_csa[@]}"
+
+    init_csv "dpi_iis.csv" "$hdr_base"
+    append_products "dpi_iis.csv" "base" "prd" "${products_iis[@]}"
+
+    init_csv "dpi_ii_vpc.csv" "$hdr_base"
+    append_products "dpi_ii_vpc.csv" "iis_vpc" "prd" "${products_iis_vpc[@]}"
+
+    init_csv "dpi_jbossEAP.csv" "$hdr_base"
+    append_products "dpi_jbossEAP.csv" "base" "prd" "${products_jbosseap[@]}"
+
+    init_csv "dpi_jbossews.csv" "$hdr_base"
+    append_products "dpi_jbossews.csv" "base" "prd" "${products_jbossews[@]}"
+
+    init_csv "dpi_tomcat.csv" "$hdr_base"
+    append_products "dpi_tomcat.csv" "base" "prd" "${products_tomcat[@]}"
+    append_products "dpi_tomcat.csv" "base" "ibm" "${products_tomcat_ibmcloud[@]}"
+
+    init_csv "dpi_tomcat_ibmcloud.csv" "$hdr_base"
+    append_products "dpi_tomcat_ibmcloud.csv" "base" "ibm" "${products_tomcat_ibmcloud[@]}"
+
+    init_csv "dpi_weblogic.csv" "$hdr_label"
+    append_products "dpi_weblogic.csv" "label" "prd" "${products_weblogic[@]}"
+
+    init_csv "dpi_was.csv" "$hdr_label"
+    append_products "dpi_was.csv" "label" "prd" "${products_was[@]}"
+
+    init_csv "dpi_sso.csv" "$hdr_sso"
+    append_products "dpi_sso.csv" "sso" "prd" "${products_sso[@]}"
+
+    init_csv "dpi_sso_ibm_vdc.csv" "$hdr_sso_ibm"
+    append_products "dpi_sso_ibm_vdc.csv" "sso_ibm_vdc" "prd" "${products_sso_ibm_vdc[@]}"
+
+    init_csv "dpi_global.csv" "$hdr_label"
+    append_products "dpi_global.csv" "base" "prd" "${products_global[@]}"
+    append_products "dpi_global.csv" "base" "ibm" "${products_tomcat_ibmcloud[@]}"
     ;;
 esac
