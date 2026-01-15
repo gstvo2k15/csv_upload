@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 PYTHON="/usr/bin/python3"
 SCRIPT="$PWD/csv2ini.py"
-CSV_DIR="/apps/mdw-reporting/dpi_reports/csv"
+CSV_DIR="$PWD/csv"
 
 OUT_DIR="$PWD/inventories"
 LOG_DIR="/apps/mdw-reporting/dpi_reports/logs"
