@@ -1,4 +1,4 @@
-REGION,ECOSYSTEM,PRODUCT,PRODUCT_VERSION,ENV,STATUS,ZONE,HOSTNAME,FDQN,LOCATION,PERIMETER,DOMAIN,OS_VERSION,LABEL
+REGION,ECOSYSTEM,PRODUCT,PRODUCT_VERSION,ENV,STATUS,ZONE,HOSTNAME,FQDN,LOCATION,PERIMETER,DOMAIN,OS_VERSION,LABEL
 EMEA,"AXWSNTUK","weblogic","2.3","DEV","ACTIVE","PRD","eurvli93518","eurvli93518.xmp.net.intra","CORE","intranet","euro","9","wls_slave"
 EMEA,"AXWSNTUK","weblogic","2.3","DEV","ACTIVE","PRD","eurvli93517","eurvli93517.xmp.net.intra","CORE","intranet","euro","9","wls_slave"
 EMEA,"AXWSNTUK","weblogic","2.3","DEV","ACTIVE","PRD","eurvli93519","eurvli93519.xmp.net.intra","CORE","intranet","euro","9","wls_master"

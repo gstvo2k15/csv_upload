@@ -1,4 +1,4 @@
-REGION,ECOSYSTEM,PRODUCT,PRODUCT_VERSION,ENV,STATUS,ZONE,HOSTNAME,FDQN,LOCATION,PERIMETER,DOMAIN,OS_VERSION
+REGION,ECOSYSTEM,PRODUCT,PRODUCT_VERSION,ENV,STATUS,ZONE,HOSTNAME,FQDN,LOCATION,PERIMETER,DOMAIN,OS_VERSION
 EMEA,"MDA","tomcat_ibmcloud_vpc","2.4","DEV","ACTIVE","null","eurvli112457","eurvli112457.xmp.net.intra","MZR","","warp","9"
 EMEA,"GIOTTO","tomcat_ibmcloud_vpc","2.4","DEV","ACTIVE","null","eurvli107721","eurvli107721.xmp.net.intra","MZR","","warp","9"
 EMEA,"KAMISORI","tomcat_ibmcloud_vpc","2.4","DEV","ACTIVE","null","eurvli107532","eurvli107532.xmp.net.intra","MZR","","warp","9"
