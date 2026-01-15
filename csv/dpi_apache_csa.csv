@@ -1,0 +1,7 @@
+REGION,ECOSYSTEM,PRODUCT,PRODUCT_VERSION,ENV,STATUS,ZONE,HOSTNAME,FDQN,LOCATION,PERIMETER,DOMAIN,OS_VERSION
+EMEA,"FRONT-BPFS","csa_imported_apache_dmzi_emea","1.0","STG","ACTIVE","CORE","eurvlzi00520","null","DMZI","","","9"
+EMEA,"FRONT-BPFS","csa_imported_apache_dmzi_emea","1.0","STG","ACTIVE","CORE","eurvlzi00519","null","DMZI","","","8"
+EMEA,"DATA-HUB-WOW","csa_imported_apache_dmzi_emea","1.0","STG","ACTIVE","CORE","eurvlzi00826","null","DMZI","","","9"
+EMEA,"DATA-HUB-WOW","csa_imported_apache_dmzi_emea","1.0","STG","ACTIVE","CORE","eurvlzi00827","null","DMZI","","","9"
+EMEA,"DATA-HUB-WOW","csa_imported_apache_dmzi_emea","1.0","PRD","ACTIVE","CORE","eurvlzi00829","null","DMZI","","","9"
+EMEA,"DATA-HUB-WOW","csa_imported_apache_dmzi_emea","1.0","PRD","ACTIVE","CORE","eurvlzi00828","null","DMZI","","","9"
