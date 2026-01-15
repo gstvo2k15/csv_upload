@@ -1,0 +1,7 @@
+REGION,ECOSYSTEM,PRODUCT,PRODUCT_VERSION,ENV,STATUS,ZONE,HOSTNAME,FQDN,LOCATION,PERIMETER,DOMAIN,OS_VERSION
+EMEA,"FRONT-BPFS","apache_emea","1.0","DEV","ACTIVE","CORE","eurvl000001","null","CORE","","","9"
+EMEA,"FRONT-BPFS","apache_emea","1.0","STG","ACTIVE","CORE","eurvl000002","null","CORE","","","8"
+AMER,"DATA-HUB-WOW","dpi_upgraded_apache","1.0","STG","ACTIVE","CORE","narvl000003","null","CORE","","","9"
+AMER,"DATA-HUB-WOW","dpi_upgraded_apache","1.0","STG","ACTIVE","CORE","narvl000004","null","CORE","","","9"
+APAC,"DATA-HUB-WOW","apache_ibm","1.0","PRD","ACTIVE","CORE","sinvli000005","null","CORE","","","9"
+APAC,"DATA-HUB-WOW","apache_ibm","1.0","PRD","ACTIVE","CORE","sinvli000006","null","CORE","","","9"
