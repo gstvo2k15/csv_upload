@@ -43,7 +43,7 @@ for CSV_PATH in "${CSV_DIR}"/*.csv; do
     fi
 
     {
-        echo -e "\n\nINFO: VM count per group (excluding :children/:vars) for ${PRODUCT_LC}.ini inventory created\n"
+        echo -e "INFO: VM count per group (excluding :children/:vars) for ${PRODUCT_LC}.ini inventory created\n"
         awk -f "${COUNT_AWK}" "${OUT_FILE}" | sort
     } | tee -a "${LOG_FILE}"
 
