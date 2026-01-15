@@ -33,17 +33,17 @@ for CSV_PATH in "${CSV_DIR}"/*.csv; do
 
     "${PYTHON}" "${SCRIPT}" "${CSV_PATH}" \
         > "${OUT_FILE}" 2>> "${LOG_FILE}" || {
-            echo "ERROR: conversion failed for ${CSV_BASENAME}" >> "${LOG_FILE}"
+            echo -e "\nERROR: conversion failed for ${CSV_BASENAME}" >> "${LOG_FILE}"
         }
 
     if [[ ! -s "${OUT_FILE}" ]]; then
         rm -f "${OUT_FILE}"
-        echo "INFO: inventory for ${PRODUCT} was empty -> file removed" >> "${LOG_FILE}"
+        echo -e "\nINFO: inventory for ${PRODUCT} was empty -> file removed" >> "${LOG_FILE}"
         continue
     fi
 
     {
-        echo -e "\nINFO: VM count per group (excluding :children/:vars) for ${PRODUCT_LC}\n\n"
+        echo -e "\n\nINFO: VM count per group (excluding :children/:vars) for ${PRODUCT_LC}\n"
         awk -f "${COUNT_AWK}" "${OUT_FILE}" | sort
     } | tee -a "${LOG_FILE}"
 
