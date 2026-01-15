@@ -3,13 +3,13 @@ set -euo pipefail
 IFS=$'\n\t'
 
 PYTHON="/usr/bin/python3"
-SCRIPT="/apps/mdw-reporting/dpi_reports/elastic_inventory/csv2ini.py"
+SCRIPT="$PWD/csv2ini.py"
 CSV_DIR="/apps/mdw-reporting/dpi_reports/csv"
 
-OUT_DIR="/apps/mdw-reporting/dpi_reports/elastic_inventory/inventories"
+OUT_DIR="$PWD/inventories"
 LOG_DIR="/apps/mdw-reporting/dpi_reports/logs"
 
-COUNT_AWK="/apps/mdw-reporting/dpi_reports/elastic_inventory/ini_section_counts.awk"
+COUNT_AWK="$PWD/ini_section_counts.awk"
 
 for CSV_PATH in "${CSV_DIR}"/*.csv; do
     CSV_BASENAME="$(basename "${CSV_PATH}")"
