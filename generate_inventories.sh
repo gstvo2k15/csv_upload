@@ -45,6 +45,6 @@ for CSV_PATH in "${CSV_DIR}"/*.csv; do
     {
         echo "INFO: VM count per group (excluding :children/:vars) for ${PRODUCT_LC}"
         awk -f "${COUNT_AWK}" "${OUT_FILE}" | sort
-    } >> "${LOG_FILE}"
+    } | tee -a "${LOG_FILE}"
 
 done
