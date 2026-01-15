@@ -35,6 +35,8 @@ trap cleanup EXIT
 
 RUN_TS="$(date '+%Y%m%d_%H%M%S')"
 
+# AQUI FALTABA EL FOR
+for csv_path in "${CSV_DIR}"/*.csv; do
   csv_name="$(basename "${csv_path}")"
   [[ "${csv_name}" == "dpi_global.csv" ]] && continue
 
